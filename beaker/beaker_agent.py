@@ -7,7 +7,9 @@ import os
 import asyncio
 import logging
 os.environ["OTEL_SDK_DISABLED"] = "true"
-os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "FALSE"
+os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "TRUE"
+os.environ["GOOGLE_CLOUD_PROJECT"] = os.environ.get("GOOGLE_CLOUD_PROJECT", "stardust-adk")
+os.environ["GOOGLE_CLOUD_LOCATION"] = os.environ.get("GOOGLE_CLOUD_LOCATION", "europe-west2")
 
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
@@ -21,11 +23,6 @@ from google.genai import types
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("beaker")
 
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-if not GEMINI_API_KEY:
-    raise ValueError("GEMINI_API_KEY environment variable not set")
-
-os.environ["GOOGLE_API_KEY"] = GEMINI_API_KEY
 
 app = FastAPI(title="Beaker - Vulnerable Agent")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])

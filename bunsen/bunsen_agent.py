@@ -11,7 +11,9 @@ import subprocess
 import requests
 
 os.environ["OTEL_SDK_DISABLED"] = "true"
-os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "FALSE"
+os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "TRUE"
+os.environ["GOOGLE_CLOUD_PROJECT"] = os.environ.get("GOOGLE_CLOUD_PROJECT", "stardust-adk")
+os.environ["GOOGLE_CLOUD_LOCATION"] = os.environ.get("GOOGLE_CLOUD_LOCATION", "europe-west2")
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -26,15 +28,9 @@ import google.auth.transport.requests
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("bunsen")
 
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-GCP_PROJECT = os.environ.get("GCP_PROJECT", "stardust-adk")
-ARMOR_LOCATION = os.environ.get("ARMOR_LOCATION", "europe-west2")
+GCP_PROJECT = os.environ.get("GOOGLE_CLOUD_PROJECT", "stardust-adk")
+ARMOR_LOCATION = os.environ.get("GOOGLE_CLOUD_LOCATION", "europe-west2")
 ARMOR_TEMPLATE = os.environ.get("ARMOR_TEMPLATE", "my-first-template")
-
-if not GEMINI_API_KEY:
-    raise ValueError("GEMINI_API_KEY environment variable not set")
-
-os.environ["GOOGLE_API_KEY"] = GEMINI_API_KEY
 
 TEMPLATE_PATH = f"projects/{GCP_PROJECT}/locations/{ARMOR_LOCATION}/templates/{ARMOR_TEMPLATE}"
 ARMOR_BASE = f"https://modelarmor.{ARMOR_LOCATION}.rep.googleapis.com/v1"

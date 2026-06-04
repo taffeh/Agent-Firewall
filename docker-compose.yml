@@ -17,7 +17,7 @@ services:
       - "8081:8081"
     env_file: .env
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localost:8081/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
       interval: 10s
       timeout: 5s
       retries: 3

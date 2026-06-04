@@ -26,7 +26,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("bunsen")
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-GCP_PROJECT = os.environ.get("GCP_PROJECT", "teletraan-one")
+GCP_PROJECT = os.environ.get("GCP_PROJECT", "stardust-adk")
 ARMOR_LOCATION = os.environ.get("ARMOR_LOCATION", "europe-west2")
 ARMOR_TEMPLATE = os.environ.get("ARMOR_TEMPLATE", "my-first-template")
 

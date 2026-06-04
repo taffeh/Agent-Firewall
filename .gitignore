@@ -1,0 +1,35 @@
+# Environment & secrets
+.env
+*.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+.venv/
+
+# Docker
+*.log
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+Thumbs.db
+
+# Garak outputs (if you ever run it from this dir)
+*.jsonl
+*.html
+garak_runs/
+
+# Claude Code
+.claude/

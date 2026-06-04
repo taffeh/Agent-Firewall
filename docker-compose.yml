@@ -1,0 +1,27 @@
+services:
+  beaker:
+    build: ./beaker
+    container_name: beaker
+    networks:
+      - ai-demo
+    ports:
+      - "8082:8080"      # ← changed from 8080 to 8082
+    env_file: .env
+
+  bunsen:
+    build: ./bunsen
+    container_name: bunsen
+    networks:
+      - ai-demo
+    ports:
+      - "8081:8081"
+    env_file: .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localost:8081/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  ai-demo:
+    driver: bridge

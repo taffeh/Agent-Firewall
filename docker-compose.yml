@@ -16,11 +16,25 @@ services:
     ports:
       - "8081:8081"
     env_file: .env
+    volumes:
+      - ~/.config/gcloud/application_default_credentials.json:/root/.config/gcloud/application_default_credentials.json:ro
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/root/.config/gcloud/application_default_credentials.json
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
       interval: 10s
       timeout: 5s
       retries: 3
+
+  ui:
+    image: nginx:alpine
+    container_name: ui
+    networks:
+      - ai-demo
+    ports:
+      - "8080:80"
+    volumes:
+      - ./ui:/usr/share/nginx/html:ro
 
 networks:
   ai-demo:

@@ -14,6 +14,7 @@ os.environ["OTEL_SDK_DISABLED"] = "true"
 os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "FALSE"
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from google.adk.agents import LlmAgent
 from google.adk.runners import Runner
@@ -39,6 +40,7 @@ TEMPLATE_PATH = f"projects/{GCP_PROJECT}/locations/{ARMOR_LOCATION}/templates/{A
 ARMOR_BASE = f"https://modelarmor.{ARMOR_LOCATION}.rep.googleapis.com/v1"
 
 app = FastAPI(title="Bunsen - Protected Agent")
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 # ---------------------------------------------------------------
 # SAME VULNERABLE SYSTEM PROMPT AS BEAKER

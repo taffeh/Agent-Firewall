@@ -30,6 +30,7 @@ Thumbs.db
 # Garak outputs (if you ever run it from this dir)
 *.jsonl
 *.html
+!ui/*.html
 garak_runs/
 
 # Claude Code

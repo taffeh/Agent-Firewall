@@ -11,6 +11,7 @@ os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "FALSE"
 
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from google.adk.agents import LlmAgent
 from google.adk.runners import Runner
@@ -27,6 +28,7 @@ if not GEMINI_API_KEY:
 os.environ["GOOGLE_API_KEY"] = GEMINI_API_KEY
 
 app = FastAPI(title="Beaker - Vulnerable Agent")
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 # ---------------------------------------------------------------
 # DELIBERATELY VULNERABLE SYSTEM PROMPT

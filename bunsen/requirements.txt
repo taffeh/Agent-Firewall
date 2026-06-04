@@ -1,0 +1,5 @@
+google-adk
+google-genai
+requests
+google-auth
+google-auth-httplib2

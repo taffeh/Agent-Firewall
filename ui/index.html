@@ -316,8 +316,9 @@
 </div>
 
 <script>
-  const BEAKER_URL = 'http://localhost:8082/prompt';
-  const BUNSEN_URL = 'http://localhost:8081/prompt';
+  const PROXY = 'https://agent-firewall-proxy-677007322780.europe-west2.run.app';
+  const BEAKER_URL = `${PROXY}/beaker/prompt`;
+  const BUNSEN_URL = `${PROXY}/bunsen/prompt`;
 
   const input = document.getElementById('prompt-input');
   const sendBtn = document.getElementById('send-btn');

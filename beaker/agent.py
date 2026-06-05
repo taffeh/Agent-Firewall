@@ -8,6 +8,7 @@ import logging
 os.environ["OTEL_SDK_DISABLED"] = "true"
 os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "TRUE"
 
+import uuid
 import httpx
 from typing import Optional
 from google.adk.agents import LlmAgent
@@ -37,7 +38,7 @@ def pan_airs_guard(
             AIRS_ENDPOINT,
             headers={"x-pan-token": AIRS_API_KEY, "Content-Type": "application/json"},
             json={
-                "tr_id": callback_context.session_id,
+                "tr_id": str(uuid.uuid4()),
                 "ai_profile": {"profile_name": AIRS_PROFILE},
                 "metadata": {"app_name": "Beaker"},
                 "contents": [{"prompt": prompt_text}],

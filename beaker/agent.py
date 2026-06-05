@@ -13,6 +13,7 @@ import aisecurity
 from aisecurity.generated_openapi_client.models.ai_profile import AiProfile
 from aisecurity.scan.inline.scanner import Scanner
 from aisecurity.scan.models.content import Content
+from google.cloud import secretmanager
 from google.adk.agents import LlmAgent
 from google.adk.agents.callback_context import CallbackContext
 from google.adk.models.llm_request import LlmRequest
@@ -22,8 +23,18 @@ from google.genai import types
 logger = logging.getLogger("beaker")
 logging.basicConfig(level=logging.INFO)
 
-AIRS_API_KEY = os.environ.get("AIRS_API_KEY", "")
+GCP_PROJECT = os.environ.get("GOOGLE_CLOUD_PROJECT", "stardust-adk")
 AIRS_PROFILE = os.environ.get("AIRS_PROFILE", "Default")
+
+
+def _get_secret(secret_id: str) -> str:
+    client = secretmanager.SecretManagerServiceClient()
+    name = f"projects/{GCP_PROJECT}/secrets/{secret_id}/versions/latest"
+    response = client.access_secret_version(request={"name": name})
+    return response.payload.data.decode("utf-8")
+
+
+AIRS_API_KEY = _get_secret("pan-airs-api-key")
 
 aisecurity.init(
     api_key=AIRS_API_KEY,

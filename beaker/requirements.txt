@@ -1,3 +1,4 @@
 google-adk
 google-genai
 pan-aisecurity
+google-cloud-secret-manager

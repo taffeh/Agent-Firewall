@@ -1,4 +1,4 @@
 google-adk
 google-genai
-pan-aisecurity
+httpx
 google-cloud-secret-manager
